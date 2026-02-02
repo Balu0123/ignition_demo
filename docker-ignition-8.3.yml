@@ -1,0 +1,44 @@
+services:
+  gateway_8_3:
+    user: root
+    image: inductiveautomation/ignition:8.3
+    container_name: ignition_gateway_8_3
+    ports:
+      - "9088:8088"
+    volumes:
+      - ./data:/usr/local/bin/ignition/data
+    networks:
+      - ignition_8_3
+    environment:
+      - IGNITION_EDITION=standard
+      - GATEWAY_ADMIN_USERNAME=pcs
+      - GATEWAY_ADMIN_PASSWORD=1234
+      - ACCEPT_IGNITION_EULA=Y
+    command: >
+      -n ignition_8_3
+#      -m 2048
+   
+
+  db:
+    image: mysql:8.0.44-debian
+    container_name: ignition_8_3_mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ignition_8_3_db:/var/lib/mysql
+    networks:
+      - ignition_8_3
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=ignition_db
+      - MYSQL_USER=ignition
+      - MYSQL_PASSWORD=ignition
+
+
+volumes:
+  ignition_8_3_db:
+
+networks:
+  ignition_8_3:
+    external: true
+

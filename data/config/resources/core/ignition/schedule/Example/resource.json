@@ -1,0 +1,14 @@
+{
+  "scope": "A",
+  "description": "An example of a M-F 8am-5pm schedule with a lunch break",
+  "version": 1,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "config.json"
+  ],
+  "attributes": {
+    "uuid": "a304676f-3e15-4854-a201-0e992f61020d",
+    "enabled": true
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "scope": "A",
+  "description": "Default tag provider",
+  "version": 1,
+  "restricted": false,
+  "overridable": false,
+  "files": [
+    "config.json"
+  ],
+  "attributes": {
+    "uuid": "70c6c941-853d-495c-a624-c3d9aeda5557"
+  }
+}

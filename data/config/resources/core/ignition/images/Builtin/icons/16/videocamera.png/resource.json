@@ -1,0 +1,20 @@
+{
+  "scope": "A",
+  "version": 1,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "videocamera.png"
+  ],
+  "attributes": {
+    "width": 16,
+    "format": "PNG",
+    "lastModification": {
+      "actor": "import",
+      "timestamp": "2026-02-02T10:44:06Z"
+    },
+    "size": 570,
+    "lastModificationSignature": "7da478ddfa8c17de100d78c930e35f4dfca4b9318fda0e6e245caa588d301c1f",
+    "height": 16
+  }
+}
