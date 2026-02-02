@@ -39,3 +39,6 @@
 
 # Alarm history files
 **/.alarms_*
+
+# .env
+.env

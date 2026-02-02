@@ -10,14 +10,13 @@ services:
     networks:
       - ignition_8_3
     environment:
-      - IGNITION_EDITION=standard
-      - GATEWAY_ADMIN_USERNAME=pcs
-      - GATEWAY_ADMIN_PASSWORD=1234
-      - ACCEPT_IGNITION_EULA=Y
+      IGNITION_EDITION: ${IGNITION_EDITION}
+      GATEWAY_ADMIN_USERNAME: ${GATEWAY_ADMIN_USERNAME}
+      GATEWAY_ADMIN_PASSWORD: ${GATEWAY_ADMIN_PASSWORD}
+      ACCEPT_IGNITION_EULA: "Y"
     command: >
-      -n ignition_8_3
-#      -m 2048
-   
+      -n ${IGNITION_SYSTEM_NAME}
+    # -m 2048
 
   db:
     image: mysql:8.0.44-debian
@@ -29,11 +28,10 @@ services:
     networks:
       - ignition_8_3
     environment:
-      - MYSQL_ROOT_PASSWORD=1234
-      - MYSQL_DATABASE=ignition_db
-      - MYSQL_USER=ignition
-      - MYSQL_PASSWORD=ignition
-
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
 volumes:
   ignition_8_3_db:
@@ -41,4 +39,3 @@ volumes:
 networks:
   ignition_8_3:
     external: true
-
