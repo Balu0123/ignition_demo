@@ -62,12 +62,5 @@
       "persistent": false
     }
   },
-  "props": {
-    "address": "192.168.56.1",
-    "device": {},
-    "geolocation": {},
-    "locale": "en-US",
-    "offline": {},
-    "timeZoneId": "Etc/UTC"
-  }
+  "props": {}
 }

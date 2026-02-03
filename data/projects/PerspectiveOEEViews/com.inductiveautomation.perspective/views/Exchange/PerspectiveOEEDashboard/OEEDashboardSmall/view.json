@@ -5,25 +5,25 @@
         "$": [
           "ts",
           192,
-          1770098841868
+          1770115354362
         ],
-        "$ts": 1770098841868
+        "$ts": 1770115354362
       },
       "now": {
         "$": [
           "ts",
           192,
-          1770098841868
+          1770115354362
         ],
-        "$ts": 1770098841867
+        "$ts": 1770115354361
       },
       "start": {
         "$": [
           "ts",
           192,
-          1770098841868
+          1770115354362
         ],
-        "$ts": 1770070041868
+        "$ts": 1770086554362
       }
     }
   },
@@ -56,7 +56,7 @@
       "end": "auto",
       "start": "auto"
     },
-    "path": "[default]Exchange/PerspectiveOEEDashboard/OEEDashboardExample",
+    "path": "[Test_Tags]Exchange/PerspectiveOEEDashboard/OEEDashboardExample",
     "settingsEnable": true,
     "settingsShow": false,
     "valuesToDisplay": {

@@ -1,6 +1,6 @@
 {
   "custom": {
-    "color": "blue",
+    "color": "green",
     "data": [
       {
         "aggregate": "Average"
@@ -11,22 +11,38 @@
         "$": [
           "ts",
           192,
-          1770101383094
+          1770115327608
         ],
-        "$ts": 1770101383094
+        "$ts": 1770115327608
       },
       "start": {
         "$": [
           "ts",
           192,
-          1770101383094
+          1770115327608
         ],
-        "$ts": 1770072583094
+        "$ts": 1770086527608
       }
     },
-    "stats": null,
-    "statsColors": null,
-    "value": 0
+    "stats": {
+      "Avg": 81.4,
+      "Max": 95.1,
+      "Min": 68.8,
+      "t_stamp": {
+        "$": [
+          "ts",
+          192,
+          1770115327884
+        ],
+        "$ts": 1770115327884
+      }
+    },
+    "statsColors": {
+      "avgColor": "orange",
+      "maxColor": "green",
+      "minColor": "orange"
+    },
+    "value": 92.812
   },
   "params": {
     "color": "blue",
@@ -53,9 +69,9 @@
     },
     "graph": true,
     "name": "OEE",
-    "path": "[default]OEE Dashboard Example/OEE",
+    "path": "[Test_Tags]Exchange/PerspectiveOEEDashboard/OEEDashboardExample/OEE",
     "stats": true,
-    "statsMaxColor": false
+    "statsMaxColor": true
   },
   "propConfig": {
     "custom.color": {
