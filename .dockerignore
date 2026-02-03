@@ -1,0 +1,23 @@
+# Git
+.git
+.gitignore
+
+# Secrets (NEVER send to Docker)
+.env
+.env.enc
+*.key
+*.pem
+
+# Ignition runtime data (mounted as volume)
+data/**
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# Backups & archives
+*.zip
+*.tar
+*.gz
