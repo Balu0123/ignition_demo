@@ -5,9 +5,15 @@
   "restricted": false,
   "overridable": true,
   "files": [
-    "config.json"
+    "config.json",
+    "mysql-connector-j-9.4.0.jar"
   ],
   "attributes": {
-    "uuid": "f9a7c4c7-4993-4e7c-bdc1-c826aca46afd"
+    "lastModification": {
+      "actor": "pcs",
+      "timestamp": "2026-02-03T06:20:38Z"
+    },
+    "uuid": "f9a7c4c7-4993-4e7c-bdc1-c826aca46afd",
+    "lastModificationSignature": "0d3fd54085101a9ab995aa5c50ef41f8ba8858db1da287b408eb043c0adf035b"
   }
 }

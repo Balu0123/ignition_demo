@@ -1,0 +1,36 @@
+[
+  {
+    "name": "OEEDashboardExample",
+    "typeId": "Exchange/PerspectiveOEEDashboard/OEEDashboard",
+    "tagType": "UdtInstance",
+    "tags": [
+      {
+        "expression": "1.0 - getMillis(now())/9000.0",
+        "executionMode": "FixedRate",
+        "executionRate": 59924,
+        "name": "Availability",
+        "tagType": "AtomicTag"
+      },
+      {
+        "executionRate": 60000,
+        "historySampleRate": 60,
+        "name": "OEE",
+        "tagType": "AtomicTag"
+      },
+      {
+        "expression": "1.0 - getMillis(now())/8000.0",
+        "executionMode": "FixedRate",
+        "executionRate": 59551,
+        "name": "Performance",
+        "tagType": "AtomicTag"
+      },
+      {
+        "expression": "1.0 - getMillis(now())/7000.0",
+        "executionMode": "FixedRate",
+        "executionRate": 59235,
+        "name": "Quality",
+        "tagType": "AtomicTag"
+      }
+    ]
+  }
+]

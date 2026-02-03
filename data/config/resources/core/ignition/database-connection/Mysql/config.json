@@ -1,0 +1,36 @@
+{
+  "connectURL": "jdbc:mysql://db:3306/ignition_db",
+  "connectionProps": "zeroDateTimeBehavior\u003dCONVERT_TO_NULL;connectTimeout\u003d120000;socketTimeout\u003d120000;useSSL\u003dfalse;allowPublicKeyRetrieval\u003dtrue;rewriteBatchedStatements\u003dtrue;disableMariaDbDriver",
+  "connectionResetParams": "",
+  "defaultTransactionLevel": "DEFAULT",
+  "driver": "MySQL",
+  "evictionRate": -1,
+  "evictionTests": 3,
+  "evictionTime": 1800000,
+  "failoverMode": "STANDARD",
+  "failoverProfile": "",
+  "includeSchemaInTableName": false,
+  "password": {
+    "data": {
+      "ciphertext": "U01pXK2Ml24-0A",
+      "encrypted_key": "Fd2s7enn_hcSTi9NCWtZGHPqFrgr-NFguXHb9zEFyJGzQ6JkLokd3w",
+      "iv": "HclEXaxbEn3dajAK",
+      "protected": "eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2R0NNIiwiaWF0IjoxNzcwMTAxMjE5LCJ6aXAiOiJERUYifQ",
+      "tag": "ej_n_HhJUwV41D4YMH37Pw"
+    },
+    "type": "Embedded"
+  },
+  "poolInitSize": 0,
+  "poolMaxActive": 8,
+  "poolMaxIdle": 8,
+  "poolMaxWait": 5000,
+  "poolMinIdle": 0,
+  "slowQueryLogThreshold": 60000,
+  "testOnBorrow": true,
+  "testOnReturn": false,
+  "testWhileIdle": false,
+  "translator": "MYSQL",
+  "username": "ignition",
+  "validationQuery": "SELECT 1",
+  "validationSleepTime": 10000
+}

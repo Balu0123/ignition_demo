@@ -1,0 +1,29 @@
+
+services:
+  dbgate:
+    image: dbgate/dbgate
+    ports:
+      - 3000:3000
+    volumes:
+      - dbgate-data:/root/.dbgate
+    environment:
+      CONNECTIONS: con1
+
+      LABEL_con1: Ignition MySQL
+      SERVER_con1: db
+      USER_con1: ignition
+      PASSWORD_con1: ignition
+      PORT_con1: 3306
+      ENGINE_con1: mysql@dbgate-plugin-mysql
+
+    networks:
+      - ignition_8_3
+
+
+volumes:
+  dbgate-data:
+    driver: local
+
+networks:
+  ignition_8_3:
+    external: true

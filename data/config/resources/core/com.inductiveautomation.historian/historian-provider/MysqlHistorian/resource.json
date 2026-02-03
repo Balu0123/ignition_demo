@@ -1,0 +1,14 @@
+{
+  "scope": "A",
+  "description": "Historian",
+  "version": 1,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "config.json"
+  ],
+  "attributes": {
+    "uuid": "3fefd146-e6ee-4794-baab-fa871c701e9f",
+    "enabled": true
+  }
+}

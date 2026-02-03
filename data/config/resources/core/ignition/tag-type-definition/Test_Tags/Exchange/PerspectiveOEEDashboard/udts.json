@@ -1,0 +1,65 @@
+[
+  {
+    "name": "OEEDashboard",
+    "tagType": "UdtType",
+    "tags": [
+      {
+        "valueSource": "expr",
+        "historyMaxAge": 1,
+        "historyTimeDeadband": 30,
+        "documentation": "Availability \u003d Actual Production Time / Potential Production Time\n\nExample:\n    A machine is scheduled to run for a full 8 hour shift (Potential Production time)\n    with 2 planned 15 minute maintenance stops (Planned Stops)\n    and 45 minutes of downtime due to machine failure (Unplanned Stops)\n\nActual Production Time  \u003d Potential Production Time - Planned Stops - Unplanned Stops\n\n    480 minutes - 30 minutes - 45 minutes \u003d 405 minutes Actual Production Time\n\nAvailabilty \u003d 405/480 \u003d 0.84375 \u003d 84.375 %",
+        "tooltip": "Availability \u003d Actual Production Time / Potential Production Time",
+        "tagType": "AtomicTag",
+        "dataType": "Float4",
+        "historyProvider": "MysqlHistorian",
+        "historyMaxAgeUnits": "MIN",
+        "name": "Availability",
+        "historyEnabled": true,
+        "sampleMode": "OnChange"
+      },
+      {
+        "valueSource": "expr",
+        "historyMaxAge": 1,
+        "historyTimeDeadband": 30,
+        "expression": "{[.]Availability}*{[.]Performance}*{[.]Quality}\r\n\r\n",
+        "documentation": "OEE \u003d Availabilty * Performance * Quality\n\nThe \"Target Score\" for OEE is around 85% which is a 95% score in Availabilty, Performance, and Quality.\nA more realistic target is between 60 and 70%. \n\nExample:\n    A machine runs for 405 minutes out of a possible 480 (84.375% Availabilty)\n    It produces 245 units out of a possible 270 for the 405 minutes (90.74% Performance)\n    222 of those 245 units are of good quality (90.612% Quality)\n\nOEE \u003d 0.84375 * 0.90740 * 0.90612 \u003d 0.69374 \u003d 69.374%",
+        "tooltip": "OEE \u003d Availabilty * Performance * Quality",
+        "tagType": "AtomicTag",
+        "dataType": "Float4",
+        "historyProvider": "MysqlHistorian",
+        "historyMaxAgeUnits": "MIN",
+        "name": "OEE",
+        "historyEnabled": true,
+        "sampleMode": "OnChange"
+      },
+      {
+        "valueSource": "expr",
+        "historyMaxAge": 1,
+        "historyTimeDeadband": 30,
+        "documentation": "Performance \u003d Actual Output / Theoretical Output\n\nExample:\n    A machine is scheduled to run for a full 8 hour shift (480 minutes) but has an Actual Production Time of 405 minutes.\n    This machine has an Ideal Cycle Time of 1.5 minutes, but during the Actual Production Time, the machine produced 245 units.\n\nTheoretical Output \u003d Actual Production Time / Ideal Cycle Time\n\n    405 minutes / 1.5 minutes \u003d 270 units Theoretical Output\n\nPerformance \u003d  245/270 \u003d 0.90740 \u003d 90.74%",
+        "tooltip": "Performance \u003d Actual Output / Theoretical Output",
+        "tagType": "AtomicTag",
+        "dataType": "Float4",
+        "historyProvider": "MysqlHistorian",
+        "historyMaxAgeUnits": "MIN",
+        "name": "Performance",
+        "historyEnabled": true,
+        "sampleMode": "OnChange"
+      },
+      {
+        "valueSource": "expr",
+        "historyMaxAge": 1,
+        "historyTimeDeadband": 30,
+        "documentation": "Quality \u003d Good Unit Output / Actual Unit Output\n\nExample:\nA machine produces 245 units during a shift, but 13 of these are declared as rejected units, so there are 222 good units.\n\nQuality \u003d 222 / 245 \u003d 0.90612 \u003d 90.612 %\n",
+        "tooltip": "Quality \u003d Good Unit Output / Actual Unit Output",
+        "tagType": "AtomicTag",
+        "dataType": "Float4",
+        "historyProvider": "MysqlHistorian",
+        "historyMaxAgeUnits": "MIN",
+        "name": "Quality",
+        "historyEnabled": true,
+        "sampleMode": "OnChange"
+      }
+    ]
+  }
+]
