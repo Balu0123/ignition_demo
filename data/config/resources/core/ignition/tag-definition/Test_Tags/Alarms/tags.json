@@ -1,0 +1,17 @@
+[
+  {
+    "valueSource": "memory",
+    "historyProvider": "MysqlHistorian",
+    "alarms": [
+      {
+        "mode": "AboveValue",
+        "name": "Alarm",
+        "label": "Test Alarm",
+        "displayPath": "Display path Test Alarm"
+      }
+    ],
+    "name": "Alarm Tag",
+    "historyEnabled": false,
+    "tagType": "AtomicTag"
+  }
+]
