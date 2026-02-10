@@ -1,0 +1,103 @@
+[
+  {
+    "name": "Station 10 State",
+    "typeId": "Layer 0/STATE",
+    "tagType": "UdtInstance"
+  },
+  {
+    "name": "Station 10",
+    "typeId": "Layer 0/Packml",
+    "tagType": "UdtInstance",
+    "tags": [
+      {
+        "valueSource": "memory",
+        "valuePersistence": "Inherited",
+        "expression": "if(1,1,1)",
+        "dataType": "Int4",
+        "enabled": true,
+        "name": "00-STOPPED",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "01-IDLE",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "02-STARTING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "03-EXECUTE",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "04-COMPLETING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "05-COMPLETE",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "06-STOPPING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "07-ABORTING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "08-ABORTED",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "09-HOLDING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "10-HELD",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "11-SUSPENDING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "12-SUSPENDED",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "13-UNHOLDING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "14-UNSUSPENDING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "15-RESETTING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "16-CLEARING",
+        "tagType": "AtomicTag"
+      }
+    ]
+  }
+]

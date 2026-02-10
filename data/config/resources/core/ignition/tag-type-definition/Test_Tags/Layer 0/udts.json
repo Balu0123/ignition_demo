@@ -1,5 +1,66 @@
 [
   {
+    "name": "Unified State",
+    "typeId": null,
+    "tagType": "UdtType",
+    "tags": [
+      {
+        "valueSource": "expr",
+        "name": "00-OFF",
+        "tooltip": "STOPPED",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "01-IDLE",
+        "tooltip": "IDLE, COMPLETE",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "02-RUNNING",
+        "tooltip": "EXECUTE, COMPLETING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "03-STOPPED",
+        "tooltip": "HOLDING, HELD, SUSPENDING, SUSPENDED",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "04-FAULT",
+        "tooltip": "ABORTING, ABORTE",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "05-SETUP",
+        "tooltip": "RESETTING, CLEARING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "06-MAINTENANCE",
+        "tooltip": "OEM-specific",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "07-TRANSITION",
+        "tooltip": "STARTING, STOPPING, UNHOLDING, UNSUSPENDING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "dataType": "String",
+        "name": "Path",
+        "tagType": "AtomicTag"
+      }
+    ]
+  },
+  {
     "name": "Packml",
     "typeId": null,
     "tagType": "UdtType",
@@ -123,89 +184,28 @@
             "script": "\tif not initialChange and currentValue.value !\u003d previousValue.value:\n\t\tbasePath \u003d \"[.]\"\n    \n    \t# Write previous state\n    \tsystem.tag.writeBlocking(\n       \t[basePath + \"01-PreviousState\"],\n        \t[previousValue.value]\n    \t\t)\n    \n    \t# Write state change time\n    \tsystem.tag.writeBlocking(\n       \t[basePath + \"03-StateChangeTime\"],\n        \t[system.date.now()]\n    \t\t)"
           }
         ],
-        "expression": "if(\r\n  /* ---------- FAULT ---------- */\r\n  (\r\n    (qualityOf(tag({[.]Path} + \"/07-ABORTING\")) \u003d\u003d 192 and tag({[.]Path} + \"/07-ABORTING\"))\r\n    or\r\n    (qualityOf(tag({[.]Path} + \"/08-ABORTED\")) \u003d\u003d 192 and tag({[.]Path} + \"/08-ABORTED\"))\r\n  ),\r\n  4,\r\n\r\nif(\r\n  /* ---------- SETUP ---------- */\r\n  (\r\n    (qualityOf(tag({[.]Path} + \"/15-RESETTING\")) \u003d\u003d 192 and tag({[.]Path} + \"/15-RESETTING\"))\r\n    or\r\n    (qualityOf(tag({[.]Path} + \"/16-CLEARING\")) \u003d\u003d 192 and tag({[.]Path} + \"/16-CLEARING\"))\r\n  ),\r\n  5,\r\n\r\nif(\r\n  /* ---------- RUNNING ---------- */\r\n  (\r\n    (qualityOf(tag({[.]Path} + \"/03-EXECUTE\")) \u003d\u003d 192 and tag({[.]Path} + \"/03-EXECUTE\"))\r\n    or\r\n    (qualityOf(tag({[.]Path} + \"/04-COMPLETING\")) \u003d\u003d 192 and tag({[.]Path} + \"/04-COMPLETING\"))\r\n  ),\r\n  2,\r\n\r\nif(\r\n  /* ---------- IDLE ---------- */\r\n  (\r\n    (qualityOf(tag({[.]Path} + \"/01-IDLE\")) \u003d\u003d 192 and tag({[.]Path} + \"/01-IDLE\"))\r\n    or\r\n    (qualityOf(tag({[.]Path} + \"/05-COMPLETE\")) \u003d\u003d 192 and tag({[.]Path} + \"/05-COMPLETE\"))\r\n  ),\r\n  1,\r\n\r\nif(\r\n  /* ---------- STOPPED ---------- */\r\n  (\r\n    (qualityOf(tag({[.]Path} + \"/09-HOLDING\")) \u003d\u003d 192 and tag({[.]Path} + \"/09-HOLDING\"))\r\n    or\r\n    (qualityOf(tag({[.]Path} + \"/10-HELD\")) \u003d\u003d 192 and tag({[.]Path} + \"/10-HELD\"))\r\n    or\r\n    (qualityOf(tag({[.]Path} + \"/11-SUSPENDING\")) \u003d\u003d 192 and tag({[.]Path} + \"/11-SUSPENDING\"))\r\n    or\r\n    (qualityOf(tag({[.]Path} + \"/12-SUSPENDED\")) \u003d\u003d 192 and tag({[.]Path} + \"/12-SUSPENDED\"))\r\n  ),\r\n  3,\r\n\r\nif(\r\n  /* ---------- TRANSITION ---------- */\r\n  (\r\n    (qualityOf(tag({[.]Path} + \"/02-STARTING\")) \u003d\u003d 192 and tag({[.]Path} + \"/02-STARTING\"))\r\n    or\r\n    (qualityOf(tag({[.]Path} + \"/06-STOPPING\")) \u003d\u003d 192 and tag({[.]Path} + \"/06-STOPPING\"))\r\n    or\r\n    (qualityOf(tag({[.]Path} + \"/13-UNHOLDING\")) \u003d\u003d 192 and tag({[.]Path} + \"/13-UNHOLDING\"))\r\n    or\r\n    (qualityOf(tag({[.]Path} + \"/14-UNSUSPENDING\")) \u003d\u003d 192 and tag({[.]Path} + \"/14-UNSUSPENDING\"))\r\n  ),\r\n  7,\r\n\r\nif(\r\n  /* ---------- OFF ---------- */\r\n  (qualityOf(tag({[.]Path} + \"/00-STOPPED\")) \u003d\u003d 192 and tag({[.]Path} + \"/00-STOPPED\")),\r\n  0,\r\n\r\n-1\r\n)))))))\r\n",
+        "expression": "if(\r\n  //* ---------- FAULT ---------- */\r\n  (\r\n    (tag({[.]Path} + \"/07-ABORTING\")\u003e\u003d1)\r\n    ||\r\n    (tag({[.]Path} + \"/08-ABORTED\")\u003e\u003d1)\r\n  ),\r\n  4,\r\n\r\nif(\r\n  //* ---------- SETUP ---------- */\r\n  (\r\n    (tag({[.]Path} + \"/15-RESETTING\")\u003e\u003d1)\r\n    ||\r\n    (tag({[.]Path} + \"/16-CLEARING\")\u003e\u003d1)\r\n  ),\r\n  5,\r\n\r\nif(\r\n  //* ---------- RUNNING ---------- */\r\n  (\r\n    (tag({[.]Path} + \"/03-EXECUTE\")\u003e\u003d1)\r\n    ||\r\n    (tag({[.]Path} + \"/04-COMPLETING\")\u003e\u003d1)\r\n  ),\r\n  2,\r\n\r\nif(\r\n  //* ---------- IDLE ---------- */\r\n  (\r\n    (tag({[.]Path} + \"/01-IDLE\")\u003e\u003d1)\r\n    ||\r\n    (tag({[.]Path} + \"/05-COMPLETE\")\u003e\u003d1)\r\n  ),\r\n  1,\r\n\r\nif(\r\n  //* ---------- STOPPED ---------- */\r\n  (\r\n    (tag({[.]Path} + \"/09-HOLDING\")\u003e\u003d1)\r\n    ||\r\n    (tag({[.]Path} + \"/10-HELD\")\u003e\u003d1)\r\n    ||\r\n    (tag({[.]Path} + \"/11-SUSPENDING\")\u003e\u003d1)\r\n    ||\r\n    (tag({[.]Path} + \"/12-SUSPENDED\")\u003e\u003d1)\r\n  ),\r\n  3,\r\n\r\nif(\r\n  //* ---------- TRANSITION ---------- */\r\n  (\r\n    (tag({[.]Path} + \"/02-STARTING\")\u003e\u003d1)\r\n    ||\r\n    (tag({[.]Path} + \"/06-STOPPING\")\u003e\u003d1)\r\n    ||\r\n    (tag({[.]Path} + \"/13-UNHOLDING\")\u003e\u003d1)\r\n    ||\r\n    (tag({[.]Path} + \"/14-UNSUSPENDING\")\u003e\u003d1)\r\n  ),\r\n  7,\r\n\r\nif(\r\n  //* ---------- OFF ---------- */\r\n  (tag({[.]Path} + \"/00-STOPPED\")\u003e\u003d1),\r\n  0,\r\n\r\n-1\r\n)))))))\r\n",
         "name": "00-CurrentState",
         "tagType": "AtomicTag"
       },
       {
-        "valueSource": "reference",
+        "valueSource": "memory",
         "name": "01-PreviousState",
         "tagType": "AtomicTag"
       },
       {
         "valueSource": "expr",
-        "expression": "switch({[.]00-CurrentState},\r\n  0, \"OFF\",\r\n  1, \"IDLE\",\r\n  2, \"RUNNING\",\r\n  3, \"STOPPED\",\r\n  4, \"FAULT\",\r\n  5, \"SETUP\",\r\n  6, \"MAINTENANCE\",\r\n  7, \"TRANSITION\",\r\n  \"UNKNOWN\"\r\n)\r\n",
+        "expression": "switch(\r\n\t{[.]00-CurrentState},\r\n  \t0,1,2,3,4,5,6,7, \r\n  \t\"OFF\",\"IDLE\",\"RUNNING\",\"STOPPED\",\"FAULT\",\"SETUP\",\"MAINTENANCE\",\"TRANSITION\",\r\n  \t\"UNKNOWN\"\r\n)",
         "dataType": "String",
         "sourceTagPath": "lookup(     [.]00-CurrentState,     0, \"OFF\",     1, \"IDLE\",     2, \"RUNNING\",     3, \"STOPPED\",     4, \"FAULT\",     5, \"SETUP\",     6, \"MAINTENANCE\",     7, \"TRANSITION\",     \"UNKNOWN\" ) ",
         "name": "02-StateName",
         "tagType": "AtomicTag"
       },
       {
-        "valueSource": "reference",
+        "valueSource": "memory",
         "dataType": "DateTime",
         "name": "03-StateChangeTime",
         "formatString": "yyyy-MM-dd h:mm:ss aa",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "memory",
-        "dataType": "String",
-        "name": "Path",
-        "tagType": "AtomicTag"
-      }
-    ]
-  },
-  {
-    "name": "Unified State",
-    "typeId": null,
-    "tagType": "UdtType",
-    "tags": [
-      {
-        "valueSource": "expr",
-        "name": "00-OFF",
-        "tooltip": "STOPPED",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "01-IDLE",
-        "tooltip": "IDLE, COMPLETE",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "02-RUNNING",
-        "tooltip": "EXECUTE, COMPLETING",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "03-STOPPED",
-        "tooltip": "HOLDING, HELD, SUSPENDING, SUSPENDED",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "04-FAULT",
-        "tooltip": "ABORTING, ABORTE",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "05-SETUP",
-        "tooltip": "RESETTING, CLEARING",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "06-MAINTENANCE",
-        "tooltip": "OEM-specific",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "07-TRANSITION",
-        "tooltip": "STARTING, STOPPING, UNHOLDING, UNSUSPENDING",
         "tagType": "AtomicTag"
       },
       {
