@@ -1,10 +1,5 @@
 [
   {
-    "name": "Station 10 State",
-    "typeId": "Layer 0/STATE",
-    "tagType": "UdtInstance"
-  },
-  {
     "name": "Station 10",
     "typeId": "Layer 0/Packml",
     "tagType": "UdtInstance",
@@ -99,5 +94,15 @@
         "tagType": "AtomicTag"
       }
     ]
+  },
+  {
+    "name": "Station 10 ISA-95",
+    "typeId": "Layer 0/ISA-95",
+    "tagType": "UdtInstance"
+  },
+  {
+    "name": "Station 10 State",
+    "typeId": "Layer 0/Unified_State",
+    "tagType": "UdtInstance"
   }
 ]

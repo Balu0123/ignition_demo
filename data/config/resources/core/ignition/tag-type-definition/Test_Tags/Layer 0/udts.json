@@ -1,66 +1,5 @@
 [
   {
-    "name": "Unified State",
-    "typeId": null,
-    "tagType": "UdtType",
-    "tags": [
-      {
-        "valueSource": "expr",
-        "name": "00-OFF",
-        "tooltip": "STOPPED",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "01-IDLE",
-        "tooltip": "IDLE, COMPLETE",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "02-RUNNING",
-        "tooltip": "EXECUTE, COMPLETING",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "03-STOPPED",
-        "tooltip": "HOLDING, HELD, SUSPENDING, SUSPENDED",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "04-FAULT",
-        "tooltip": "ABORTING, ABORTE",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "05-SETUP",
-        "tooltip": "RESETTING, CLEARING",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "06-MAINTENANCE",
-        "tooltip": "OEM-specific",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "expr",
-        "name": "07-TRANSITION",
-        "tooltip": "STARTING, STOPPING, UNHOLDING, UNSUSPENDING",
-        "tagType": "AtomicTag"
-      },
-      {
-        "valueSource": "memory",
-        "dataType": "String",
-        "name": "Path",
-        "tagType": "AtomicTag"
-      }
-    ]
-  },
-  {
     "name": "Packml",
     "typeId": null,
     "tagType": "UdtType",
@@ -172,7 +111,7 @@
     ]
   },
   {
-    "name": "STATE",
+    "name": "Unified_State",
     "typeId": null,
     "tagType": "UdtType",
     "tags": [
@@ -196,6 +135,51 @@
       {
         "valueSource": "expr",
         "expression": "switch(\r\n\t{[.]00-CurrentState},\r\n  \t0,1,2,3,4,5,6,7, \r\n  \t\"OFF\",\"IDLE\",\"RUNNING\",\"STOPPED\",\"FAULT\",\"SETUP\",\"MAINTENANCE\",\"TRANSITION\",\r\n  \t\"UNKNOWN\"\r\n)",
+        "dataType": "String",
+        "sourceTagPath": "lookup(     [.]00-CurrentState,     0, \"OFF\",     1, \"IDLE\",     2, \"RUNNING\",     3, \"STOPPED\",     4, \"FAULT\",     5, \"SETUP\",     6, \"MAINTENANCE\",     7, \"TRANSITION\",     \"UNKNOWN\" ) ",
+        "name": "02-StateName",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "dataType": "DateTime",
+        "name": "03-StateChangeTime",
+        "formatString": "yyyy-MM-dd h:mm:ss aa",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "dataType": "String",
+        "name": "Path",
+        "tagType": "AtomicTag"
+      }
+    ]
+  },
+  {
+    "name": "ISA-95",
+    "typeId": null,
+    "tagType": "UdtType",
+    "tags": [
+      {
+        "valueSource": "expr",
+        "eventScripts": [
+          {
+            "eventid": "valueChanged",
+            "script": "\tif not initialChange and currentValue.value !\u003d previousValue.value:\n\t\tbasePath \u003d \"[.]\"\n    \n    \t# Write previous state\n    \tsystem.tag.writeBlocking(\n       \t[basePath + \"01-PreviousState\"],\n        \t[previousValue.value]\n    \t\t)\n    \n    \t# Write state change time\n    \tsystem.tag.writeBlocking(\n       \t[basePath + \"03-StateChangeTime\"],\n        \t[system.date.now()]\n    \t\t)"
+          }
+        ],
+        "expression": "switch(\r\n    tag({[.]Path} + \"/00-CurrentState\"),\r\n\r\n    0, 1, 2, 3, 4, 5, 6, 7,\r\n    0, 1, 2, 3, 3, 4, 4, 4,\r\n    \r\n        -1      // default\r\n    )\r\n    \r\n    // OFF → OFF\r\n    // IDLE → IDLE\r\n    // RUNNING → RUNNING\r\n    // STOPPED → UNSCHEDULED\r\n    // FAULT → UNSCHEDULED\r\n    // SETUP → SCHEDULED\r\n    // MAINTENANCE → SCHEDULED\r\n    // TRANSITION → SCHEDULED\r\n",
+        "name": "00-CurrentState",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "name": "01-PreviousState",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "expression": "switch(\r\n\t{[.]00-CurrentState},\r\n  \t0,1,2,3,4,\r\n  \t\"OFF\",\"IDLE\",\"RUNNING\",\"UNSCHEDULED STOP\",\"SCHEDULED STOP\",\r\n  \t\"UNKNOWN\"\r\n)",
         "dataType": "String",
         "sourceTagPath": "lookup(     [.]00-CurrentState,     0, \"OFF\",     1, \"IDLE\",     2, \"RUNNING\",     3, \"STOPPED\",     4, \"FAULT\",     5, \"SETUP\",     6, \"MAINTENANCE\",     7, \"TRANSITION\",     \"UNKNOWN\" ) ",
         "name": "02-StateName",

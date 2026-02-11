@@ -1,0 +1,63 @@
+[
+  {
+    "name": "Unified State",
+    "typeId": null,
+    "tagType": "UdtType",
+    "tags": [
+      {
+        "valueSource": "expr",
+        "name": "00-OFF",
+        "tooltip": "STOPPED",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "01-IDLE",
+        "tooltip": "IDLE, COMPLETE",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "02-RUNNING",
+        "tooltip": "EXECUTE, COMPLETING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "03-STOPPED",
+        "tooltip": "HOLDING, HELD, SUSPENDING, SUSPENDED",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "04-FAULT",
+        "tooltip": "ABORTING, ABORTE",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "05-SETUP",
+        "tooltip": "RESETTING, CLEARING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "06-MAINTENANCE",
+        "tooltip": "OEM-specific",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "expr",
+        "name": "07-TRANSITION",
+        "tooltip": "STARTING, STOPPING, UNHOLDING, UNSUSPENDING",
+        "tagType": "AtomicTag"
+      },
+      {
+        "valueSource": "memory",
+        "dataType": "String",
+        "name": "Path",
+        "tagType": "AtomicTag"
+      }
+    ]
+  }
+]
